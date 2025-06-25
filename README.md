@@ -52,3 +52,13 @@ FixHut is a service-sharing web application designed to allow users to add, upda
 - **Error Route** ⚠️: Custom 404 Page
 
 ---
+
+
+## Run Locally
+
+Clone the project
+
+```bash
+git clone https://github.com/JanayedHossain/fixhut.git
+
+```
