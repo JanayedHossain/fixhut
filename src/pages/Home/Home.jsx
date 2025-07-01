@@ -5,6 +5,8 @@ import PopularServices from "../../components/popular-services/PopularServices";
 import { useNavigation } from "react-router";
 import Loading from "../loading/Loading";
 import FAQ from "../../components/faq/FAQ";
+import Newsletter from "../../components/newsletter/Newsletter";
+
 
 const Home = () => {
   const navigation = useNavigation();
@@ -39,6 +41,7 @@ const Home = () => {
       <Hero />
       <PopularServices services={services} />
       <HowItWorks />
+      <Newsletter/>
       <FAQ />
     </div>
   );

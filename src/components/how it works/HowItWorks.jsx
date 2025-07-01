@@ -35,7 +35,7 @@ const HowItWorks = () => {
   ];
 
   return (
-    <section className="my-20 px-4">
+    <section className="mb-16">
       <h2 className="text-3xl font-bold text-center text-primary">
         How It Works
       </h2>

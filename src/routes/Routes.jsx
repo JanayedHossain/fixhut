@@ -16,6 +16,9 @@ import Loading from "../pages/loading/Loading";
 import MyServices from "../pages/manage-services/MyServices";
 import MyBookedServices from "../pages/booked-services/MyBookedServices";
 import MyToDo from "../pages/service-todo/MyToDo";
+import AllServices from "../pages/services/AllServices";
+import AboutUs from "../pages/about-us/AboutUs";
+import Contact from "../pages/contact/Contact";
 
 export const router = createBrowserRouter([
   {
@@ -40,6 +43,16 @@ export const router = createBrowserRouter([
         Component: Services,
         loader: () => fetch("https://fix-hut-server.vercel.app/services"),
         HydrateFallback: Loading,
+      },
+      {
+        path: "/about-us",
+        Component: AboutUs,
+
+      },
+      {
+        path: "/contact",
+        Component: Contact,
+
       },
       {
         path: "/add-service",
@@ -96,6 +109,16 @@ export const router = createBrowserRouter([
             <MyToDo />
           </PrivateRoute>
         ),
+      },
+      {
+        path: "/all-services",
+        element: (
+          <PrivateRoute>
+            <AllServices/>
+          </PrivateRoute>
+        ),
+        loader: () => fetch("https://fix-hut-server.vercel.app/services"),
+        HydrateFallback: Loading,
       },
     ],
   },

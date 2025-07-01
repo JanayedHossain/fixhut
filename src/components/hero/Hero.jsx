@@ -4,7 +4,7 @@ import manImage from "../../assets/man.svg";
 
 const Hero = () => {
   return (
-    <div className="px-4 lg:px-10 min-h-[80vh] grid grid-cols-1 lg:grid-cols-2 items-center gap-8">
+    <div className="px-4 lg:px-10 min-h-[70vh] grid grid-cols-1 lg:grid-cols-2 items-center gap-8 ">
       <motion.div
         className="text-center lg:text-left"
         initial={{ opacity: 0 }}

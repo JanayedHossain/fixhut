@@ -8,6 +8,7 @@ import { motion } from "framer-motion";
 const Services = () => {
   const allServicesData = useLoaderData();
   const [searchText, setSearchText] = useState("");
+  const [sortOption, setSortOption] = useState("");
 
   useEffect(() => {
     document.title = "Services | FixHut";
@@ -17,6 +18,12 @@ const Services = () => {
     service.title.toLowerCase().includes(searchText.trim().toLowerCase())
   );
 
+  if (sortOption === "ascending") {
+    filteredServices.sort((a, b) => a.title.localeCompare(b.title));
+  } else if (sortOption === "descending") {
+    filteredServices.sort((a, b) => b.title.localeCompare(a.title));
+  }
+
   return (
     <div>
       <h2 className="text-3xl font-bold text-center text-primary">Services</h2>
@@ -24,17 +31,28 @@ const Services = () => {
         A list of all available services with details to help users choose and
         book.
       </p>
-
-      <div className="max-w-2/3 md:max-w-md mx-auto">
-        <input
-          type="text"
-          placeholder="Search services..."
-          className="outline-none border py-2 px-3 border-gray-500 rounded-lg text-xs sm:text-sm w-full"
-          value={searchText}
-          onChange={(e) => setSearchText(e.target.value)}
-        />
+      <div className="flex w-full items-center justify-between">
+        <div className="max-w-2/3 md:max-w-md  w-full">
+          <input
+            type="text"
+            placeholder="Search services..."
+            className="outline-none border py-2 px-3 border-gray-400 rounded-lg text-xs sm:text-sm w-full"
+            value={searchText}
+            onChange={(e) => setSearchText(e.target.value)}
+          />
+        </div>
+        <div>
+          <select
+            className="outline-none border py-2 px-3 border-gray-400 rounded-lg text-xs sm:text-sm w-full"
+            value={sortOption}
+            onChange={(e) => setSortOption(e.target.value)}
+          >
+            <option value="">Sort by</option>
+            <option value="ascending">Title: A → Z</option>
+            <option value="descending">Title: Z → A</option>
+          </select>
+        </div>
       </div>
-
       {filteredServices.length === 0 && <Empty title="No services found!" />}
 
       {filteredServices?.map((service) => (

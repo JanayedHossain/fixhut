@@ -1,5 +1,5 @@
 import { use } from "react";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import Empty from "../empty/Empty";
 import useAxiousSecure from "../../hooks/useAxiousSecure";
 
@@ -9,7 +9,7 @@ import { toast } from "react-toastify";
 const ServiceToDo = ({ fetchPromiseData }) => {
   const bookedServices = use(fetchPromiseData);
   const axiosSecure = useAxiousSecure();
-
+  const navigate = useNavigate();
   const handleChange = (e, id) => {
     const statusValue = e.target.value;
     const status = { statusValue };
@@ -24,7 +24,6 @@ const ServiceToDo = ({ fetchPromiseData }) => {
       })
       .catch((err) => {
         toast.error("Failed to update service status. Please try again.");
-
       });
   };
 
@@ -45,7 +44,7 @@ const ServiceToDo = ({ fetchPromiseData }) => {
       <p className="text-center mb-12 text-xs md:text-sm text-secondary pt-2">
         Manage and update the status of services booked from you by others.
       </p>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {/* <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {bookedServices.map((service) => (
           <motion.div
             key={service._id}
@@ -99,7 +98,68 @@ const ServiceToDo = ({ fetchPromiseData }) => {
             </div>
           </motion.div>
         ))}
-      </div>
+      </div> */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        viewport={{ once: false, amount: 0.3 }}
+        transition={{ duration: 0.3, ease: "easeOut" }}
+      >
+        <div className="overflow-x-auto">
+          <table className="min-w-full table-fixed border border-gray-200">
+            <thead className="bg-primary text-white ">
+              <tr>
+                <th className="p-3 w-[50%] sm:w-auto text-left">Title</th>
+                <th className="p-3 text-left">Customer</th>
+                <th className="p-3 text-left">Instruction</th>
+                <th className="p-3 text-left">Price</th>
+                <th className="p-3 text-left">Booking Date</th>
+                <th className="p-3 text-left">Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              {bookedServices?.map((service) => (
+                <tr
+                  key={service?._id}
+                  className="border-b border-gray-200 hover:border-primary hover:text-primary transition"
+                >
+                  <td
+                    className="p-3 text-sm sm:text-base font-semibold truncate cursor-pointer"
+                    onClick={() => navigate(`/services/${service?.serviceId}`)}
+                  >
+                    {service?.serviceName.length > 25
+                      ? service?.serviceName?.slice(0, 25) + "..."
+                      : service?.serviceName}
+                  </td>
+                  <td className="p-3 text-sm sm:text-base truncate">
+                    {service?.userName}
+                  </td>
+                  <td className="p-3 text-sm sm:text-base truncate">
+                    {service?.specialInstruction}
+                  </td>
+                  <td className="p-3 text-sm sm:text-base">
+                    {service?.price}৳
+                  </td>
+                  <td className="p-3 text-sm sm:text-base truncate">
+                    {service?.serviceTakingDate}
+                  </td>
+                  <td className="p-3 text-sm sm:text-base">
+                    <select
+                      className="select select-bordered w-full min-w-[140px]"
+                      onChange={(e) => handleChange(e, service?._id)}
+                      defaultValue={service.status}
+                    >
+                      <option value="pending">Pending</option>
+                      <option value="working">Working</option>
+                      <option value="completed">Completed</option>
+                    </select>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </motion.div>
     </div>
   );
 };

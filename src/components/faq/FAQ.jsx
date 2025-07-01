@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 
 const FAQ = () => {
   return (
-    <div className="pb-24">
+    <div className="pb-16">
       <h2 className="text-3xl font-bold text-center text-primary">FAQ</h2>
       <p className="text-center mb-12 text-xs md:text-sm text-secondary pt-2">
         Answers to common questions about using the service-sharing app and its

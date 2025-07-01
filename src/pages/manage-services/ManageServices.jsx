@@ -1,5 +1,5 @@
 import { use, useState } from "react";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import Swal from "sweetalert2";
 import { toast } from "react-toastify";
 import Empty from "../empty/Empty";
@@ -9,7 +9,7 @@ import { motion } from "framer-motion";
 const ManageServices = ({ fetchPromiseData }) => {
   const servicesData = use(fetchPromiseData);
   const axiosSecure = useAxiousSecure();
-
+  const navigate = useNavigate();
   const [myServices, setMyServices] = useState(servicesData);
 
   const handleDelete = (id) => {
@@ -59,7 +59,7 @@ const ManageServices = ({ fetchPromiseData }) => {
       <p className="text-center mb-12 text-xs md:text-sm text-secondary pt-2">
         Easily update or delete the services you’ve added in your account.
       </p>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {/* <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {myServices.map((service) => (
           <motion.div
             key={service._id}
@@ -108,7 +108,61 @@ const ManageServices = ({ fetchPromiseData }) => {
             </div>
           </motion.div>
         ))}
-      </div>
+      </div> */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1}}
+        viewport={{ once: false, amount: 0.3 }}
+        transition={{ duration: 0.3, ease: "easeOut" }}
+      >
+        <div className="overflow-x-auto">
+          <table className="min-w-full table-fixed border border-gray-200">
+            <thead className="bg-primary text-white ">
+              <tr>
+                <th className="p-3 w-[50%] sm:w-auto text-left">Title</th>
+                <th className="p-3 text-left">Location</th>
+                <th className="p-3 text-left">Price</th>
+                <th className="p-3 text-left">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {myServices?.map((service) => (
+                <tr
+                  key={service._id}
+                  className="border-b border-gray-200 hover:border-primary group transition"
+                >
+                  <td
+                    className="p-3 text-sm sm:text-base font-semibold truncate group-hover:text-primary cursor-pointer"
+                    onClick={() => navigate(`/services/${service?._id}`)}
+                  >
+                    {service.title.length > 25
+                      ? service.title?.slice(0, 25) + "..."
+                      : service.title}
+                  </td>
+                  <td className="p-3 text-sm sm:text-base">
+                    {service.location}
+                  </td>
+                  <td className="p-3 text-sm sm:text-base">{service.price}৳</td>
+                  <td className="p-3 text-sm sm:text-base flex flex-col sm:flex-row gap-2">
+                    <Link to={`/edit-service/${service?._id}`}>
+                      <button className="btn btn-sm btn-outline btn-primary w-full sm:w-auto">
+                        Update
+                      </button>
+                    </Link>
+
+                    <button
+                      className="btn btn-sm btn-outline btn-error w-full sm:w-auto"
+                      onClick={() => handleDelete(service._id)}
+                    >
+                      Delete
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </motion.div>
     </div>
   );
 };

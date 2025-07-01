@@ -1,9 +1,8 @@
 # FixHut 🛠️
 
-**Assignment Category:** Assignment-11-assignment_category_02  
 **Selected Service Category:** Home Repair Services 🔧
 
-**Live Site:** [https://fixhut.netlify.app](https://fixhut.netlify.app) 🌐
+**Live Site:** [https://fixhut2.netlify.app](https://fixhut2.netlify.app) 🌐
 
 ---
 
